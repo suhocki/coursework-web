@@ -2,6 +2,11 @@
 
 define(function (require) {
   return {
+    get: function get() {
+      return fetch('http://localhost:15234/api/cars').then(function (response) {
+        return response.json();
+      });
+    },
     post: function post(formData) {
       return fetch('http://localhost:15234/api/cars', {
         method: 'post',
@@ -12,4 +17,4 @@ define(function (require) {
     }
   };
 });
-//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\api\Car.js.map
+//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\api\Car.js.map

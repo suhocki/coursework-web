@@ -1,5 +1,10 @@
 define(function (require) {
   return {
+    get() {
+      return fetch('http://localhost:15234/api/cars')
+        .then(response => response.json())
+    },
+
     post(formData) {
       return fetch('http://localhost:15234/api/cars', {
         method: 'post',

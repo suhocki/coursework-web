@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MyWebApi.Models;
@@ -71,8 +72,15 @@ namespace MyWebApi.Controllers
 
         // POST api/Cars
         [ResponseType(typeof(Car))]
-        public IHttpActionResult PostCar(Car car)
+        public IHttpActionResult PostCar()
         {
+            var request = HttpContext.Current.Request;
+
+            Car car = new Car();
+            car.Available = HttpContext.Current.Request.Form["available"] == "true";
+            car.Photo = HttpContext.Current.Request.Form["photo"];
+            car.Name = HttpContext.Current.Request.Form["name"];
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

@@ -10,6 +10,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 define(function (require) {
   var React = require('react');
+  var Link = require('reactRouter').Link;
   var Route = require('reactRouter').Route;
   var Router = require('reactRouter').Router;
   var browserHistory = require('reactRouter').browserHistory;
@@ -23,8 +24,70 @@ define(function (require) {
   var ShowCars = require('components/ShowCars');
   var ShowContracts = require('components/ShowContracts');
 
-  return function (_React$Component) {
-    _inherits(Routes, _React$Component);
+  var App = function (_React$Component) {
+    _inherits(App, _React$Component);
+
+    function App() {
+      _classCallCheck(this, App);
+
+      return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    }
+
+    _createClass(App, [{
+      key: 'render',
+      value: function render() {
+        return React.createElement(
+          'main',
+          null,
+          React.createElement(
+            'aside',
+            null,
+            React.createElement(
+              'h2',
+              null,
+              'CarSearch'
+            ),
+            React.createElement(
+              Link,
+              { to: '/', activeClassName: 'current' },
+              'Home'
+            ),
+            React.createElement(
+              Link,
+              { to: '/addUser', activeClassName: 'current' },
+              'Add user'
+            ),
+            React.createElement(
+              Link,
+              { to: '/addCar', activeClassName: 'current' },
+              'Add car'
+            ),
+            React.createElement(
+              Link,
+              { to: '/addContract', activeClassName: 'current' },
+              'Add contract'
+            ),
+            React.createElement(
+              Link,
+              { to: '/showUsers', activeClassName: 'current' },
+              'Show users'
+            ),
+            React.createElement(
+              Link,
+              { to: '/showContracts', activeClassName: 'current' },
+              'Show contracts'
+            )
+          ),
+          this.props.children
+        );
+      }
+    }]);
+
+    return App;
+  }(React.Component);
+
+  return function (_React$Component2) {
+    _inherits(Routes, _React$Component2);
 
     function Routes() {
       _classCallCheck(this, Routes);
@@ -38,13 +101,17 @@ define(function (require) {
         return React.createElement(
           Router,
           { history: browserHistory },
-          React.createElement(Route, { path: '/', component: Home }),
-          React.createElement(Route, { path: '/addUser', component: AddUser }),
-          React.createElement(Route, { path: '/addCar', component: AddCar }),
-          React.createElement(Route, { path: '/addContract', component: AddContract }),
-          React.createElement(Route, { path: '/showUsers', component: ShowUsers }),
-          React.createElement(Route, { path: '/showCars', component: ShowCars }),
-          React.createElement(Route, { path: '/showContracts', component: ShowContracts })
+          React.createElement(
+            Route,
+            { component: App },
+            React.createElement(Route, { path: '/', component: Home }),
+            React.createElement(Route, { path: '/addUser', component: AddUser }),
+            React.createElement(Route, { path: '/addCar', component: AddCar }),
+            React.createElement(Route, { path: '/addContract', component: AddContract }),
+            React.createElement(Route, { path: '/showUsers', component: ShowUsers }),
+            React.createElement(Route, { path: '/showCars', component: ShowCars }),
+            React.createElement(Route, { path: '/showContracts', component: ShowContracts })
+          )
         );
       }
     }]);
@@ -52,4 +119,4 @@ define(function (require) {
     return Routes;
   }(React.Component);
 });
-//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\Routes.js.map
+//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\Routes.js.map

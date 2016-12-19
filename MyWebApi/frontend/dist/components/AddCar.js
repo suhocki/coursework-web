@@ -83,14 +83,23 @@ define(function (require) {
       key: 'render',
       value: function render() {
         return React.createElement(
-          'form',
-          null,
-          React.createElement('input', { type: 'text', placeholder: 'Name' }),
-          React.createElement('input', { type: 'file', onChange: this.imageChosen.bind(this) }),
+          'content',
+          { 'data-flow': 'vertical' },
           React.createElement(
-            'button',
-            { onClick: this.submit.bind(this) },
-            'Submit'
+            'h2',
+            null,
+            'Add a new car'
+          ),
+          React.createElement(
+            'form',
+            null,
+            React.createElement('input', { type: 'text', placeholder: 'Name' }),
+            React.createElement('input', { type: 'file', onChange: this.imageChosen.bind(this) }),
+            React.createElement(
+              'button',
+              { onClick: this.submit.bind(this) },
+              'Submit'
+            )
           )
         );
       }
@@ -99,4 +108,4 @@ define(function (require) {
     return AddCar;
   }(React.Component);
 });
-//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\AddCar.js.map
+//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\AddCar.js.map

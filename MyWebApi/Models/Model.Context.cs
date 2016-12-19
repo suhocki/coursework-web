@@ -27,6 +27,7 @@ namespace MyWebApi.Models
     
         public DbSet<Car> Cars { get; set; }
         public DbSet<Contract> Contracts { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

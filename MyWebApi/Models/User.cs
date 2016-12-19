@@ -20,11 +20,12 @@ namespace MyWebApi.Models
         }
     
         public int Id { get; set; }
-        public bool AdminType { get; set; }
+        public int RoleId { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Password { get; set; }
     
         public virtual ICollection<Contract> Contracts { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

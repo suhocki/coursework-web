@@ -1,7 +1,7 @@
 requirejs.config({
   paths: {
     'react': [
-      'https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.min',
+      'https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react',
       '../libs/react.min'
     ],
     'reactDOM': [

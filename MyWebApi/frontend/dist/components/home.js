@@ -11,81 +11,65 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 define(function (require) {
   var React = require('react');
   var Link = require('reactRouter').Link;
+  var Car = require('../api/Car');
 
-  return function (_React$Component) {
-    _inherits(Home, _React$Component);
+  var Card = function (_React$Component) {
+    _inherits(Card, _React$Component);
+
+    function Card() {
+      _classCallCheck(this, Card);
+
+      return _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).apply(this, arguments));
+    }
+
+    _createClass(Card, [{
+      key: 'render',
+      value: function render() {
+        return React.createElement(
+          'card-component',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            this.props.name
+          ),
+          React.createElement('img', { src: this.props.photo })
+        );
+      }
+    }]);
+
+    return Card;
+  }(React.Component);
+
+  return function (_React$Component2) {
+    _inherits(Home, _React$Component2);
 
     function Home() {
       _classCallCheck(this, Home);
 
-      return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+      var _this2 = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
+
+      _this2.state = {
+        cars: []
+      };
+
+      Car.get().then(function (cars) {
+        return _this2.setState({ cars: cars });
+      });
+      return _this2;
     }
 
     _createClass(Home, [{
       key: 'render',
       value: function render() {
         return React.createElement(
-          'main',
+          'content',
           null,
-          React.createElement(
-            'aside',
-            null,
-            React.createElement(
-              'div',
-              null,
-              React.createElement(
-                Link,
-                { to: '/addUser' },
-                'Add user'
-              )
-            ),
-            React.createElement(
-              'div',
-              null,
-              React.createElement(
-                Link,
-                { to: '/addCar' },
-                'Add car'
-              )
-            ),
-            React.createElement(
-              'div',
-              null,
-              React.createElement(
-                Link,
-                { to: '/addContract' },
-                'Add contract'
-              )
-            ),
-            React.createElement('p', null),
-            React.createElement(
-              'div',
-              null,
-              React.createElement(
-                Link,
-                { to: '/showUsers' },
-                'Show users'
-              )
-            ),
-            React.createElement(
-              'div',
-              null,
-              React.createElement(
-                Link,
-                { to: '/showCars' },
-                'Show cars'
-              )
-            ),
-            React.createElement(
-              'div',
-              null,
-              React.createElement(
-                Link,
-                { to: '/showContracts' },
-                'Show contracts'
-              )
-            )
-          )
+          this.state.cars.map(function (car) {
+            return React.createElement(Card, {
+              name: car.Name,
+              photo: car.Photo });
+          })
         );
       }
     }]);
@@ -93,4 +77,4 @@ define(function (require) {
     return Home;
   }(React.Component);
 });
-//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\Home.js.map
+//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\Home.js.map

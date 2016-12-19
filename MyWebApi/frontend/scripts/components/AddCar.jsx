@@ -33,11 +33,15 @@ define(require => {
 
     render() {
       return (
-        <form>
-          <input type="text" placeholder="Name"/>
-          <input type="file" onChange={this.imageChosen.bind(this)}/>
-          <button onClick={this.submit.bind(this)}>Submit</button>
-        </form>
+        <content data-flow="vertical">
+          <h2>Add a new car</h2>
+
+          <form>
+            <input type="text" placeholder="Name"/>
+            <input type="file" onChange={this.imageChosen.bind(this)}/>
+            <button onClick={this.submit.bind(this)}>Submit</button>
+          </form>
+        </content>
       )
     }
   }

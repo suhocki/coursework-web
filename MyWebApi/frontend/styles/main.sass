@@ -1,6 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans')
+
+$white: #fff
+$gray-shade: rgba(0, 0, 0, .2)
+$theme-primary: #03A9F4
+$theme-primary-light: #B3E5FC
+
+$gutter: 1em
+
+html,
 body
+  font: 16px 'Fira Sans'
   background: #eee
+  margin: 0
+
+html,
+body,
+app,
+main
+  height: 100%
+  display: block
+
+main
+  display: flex
+
+content
+  display: flex
+  padding: $gutter
+  align-items: flex-start
+
+  &[data-flow="vertical"]
+    flex-direction: column
+
+  h2
+    margin: 0
+
+  input
+    padding: $gutter / 2
+    margin: $gutter 0
+
+    &[type="file"]
+      padding: 0
+
+  button
+    border: none
+    border-radius: 3px
+    color: $white
+    background: $theme-primary
+    padding: $gutter / 2 $gutter * 2
 
 input,
 button
   display: block
+
+aside
+  display: flex
+  flex-direction: column
+  height: 100%
+  width: 20vw
+  background: $theme-primary-light
+
+  h2
+    text-align: center
+
+  a
+    padding: $gutter
+    color: #333
+    text-decoration: none
+
+    &.current
+      background: rgba(3, 169, 244, 0.42)
+
+card-component
+  display: block
+  background: $white
+  margin-right: $gutter
+  padding: $gutter
+  box-shadow: 1px 1px 5px $gray-shade
+
+  img
+    max-width: 20vw
