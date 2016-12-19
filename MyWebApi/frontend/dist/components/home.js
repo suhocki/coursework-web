@@ -35,8 +35,8 @@ define(function (require) {
               null,
               React.createElement(
                 Link,
-                { to: '/register' },
-                'Register'
+                { to: '/addUser' },
+                'Add user'
               )
             ),
             React.createElement(
@@ -47,6 +47,43 @@ define(function (require) {
                 { to: '/addCar' },
                 'Add car'
               )
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                Link,
+                { to: '/addContract' },
+                'Add contract'
+              )
+            ),
+            React.createElement('p', null),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                Link,
+                { to: '/showUsers' },
+                'Show users'
+              )
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                Link,
+                { to: '/showCars' },
+                'Show cars'
+              )
+            ),
+            React.createElement(
+              'div',
+              null,
+              React.createElement(
+                Link,
+                { to: '/showContracts' },
+                'Show contracts'
+              )
             )
           )
         );
@@ -56,4 +93,4 @@ define(function (require) {
     return Home;
   }(React.Component);
 });
-//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\Home.js.map
+//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\Home.js.map

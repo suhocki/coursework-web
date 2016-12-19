@@ -99,4 +99,4 @@ define(function (require) {
     return AddCar;
   }(React.Component);
 });
-//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\AddCar.js.map
+//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\AddCar.js.map

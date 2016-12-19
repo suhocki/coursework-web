@@ -16,7 +16,12 @@ define(function (require) {
 
   var AddCar = require('components/AddCar');
   var Home = require('components/Home');
-  var Register = require('components/Register');
+  var AddUser = require('components/AddUser');
+  var AddContract = require('components/AddContract');
+
+  var ShowUsers = require('components/ShowUsers');
+  var ShowCars = require('components/ShowCars');
+  var ShowContracts = require('components/ShowContracts');
 
   return function (_React$Component) {
     _inherits(Routes, _React$Component);
@@ -34,8 +39,12 @@ define(function (require) {
           Router,
           { history: browserHistory },
           React.createElement(Route, { path: '/', component: Home }),
-          React.createElement(Route, { path: '/register', component: Register }),
-          React.createElement(Route, { path: '/addCar', component: AddCar })
+          React.createElement(Route, { path: '/addUser', component: AddUser }),
+          React.createElement(Route, { path: '/addCar', component: AddCar }),
+          React.createElement(Route, { path: '/addContract', component: AddContract }),
+          React.createElement(Route, { path: '/showUsers', component: ShowUsers }),
+          React.createElement(Route, { path: '/showCars', component: ShowCars }),
+          React.createElement(Route, { path: '/showContracts', component: ShowContracts })
         );
       }
     }]);
@@ -43,4 +52,4 @@ define(function (require) {
     return Routes;
   }(React.Component);
 });
-//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\Routes.js.map
+//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\Routes.js.map

@@ -10,10 +10,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 define(function (require) {
   var React = require('react');
-  var getUsers = require('../api/getUsers');
-  var postUser = require('../api/postUser');
+  var User = require('../api/User');
 
-  var object = {
+  var user = {
     name: '',
     isAdmin: '',
     password: '',
@@ -28,7 +27,7 @@ define(function (require) {
 
       var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this));
 
-      getUsers.request('http://localhost:15234/api/users').then(function (data) {
+      User.get().then(function (data) {
         _this.setState({
           users: data
         });
@@ -44,30 +43,30 @@ define(function (require) {
       key: 'onNameChange',
       value: function onNameChange(event) {
         event.preventDefault();
-        object.name = event.target.value;
+        user.name = event.target.value;
       }
     }, {
       key: 'onIsAdminChange',
       value: function onIsAdminChange(event) {
         event.preventDefault();
-        object.isAdmin = event.target.value;
+        user.isAdmin = event.target.value;
       }
     }, {
       key: 'onPasswordChange',
       value: function onPasswordChange(event) {
         event.preventDefault();
-        object.password = event.target.value;
+        user.password = event.target.value;
       }
     }, {
       key: 'onPhoneChange',
       value: function onPhoneChange(event) {
         event.preventDefault();
-        object.phone = event.target.value;
+        user.phone = event.target.value;
       }
     }, {
       key: 'onSubmit',
       value: function onSubmit(event) {
-        postUser.request('http://localhost:15234/api/users', object).then(function (data) {
+        User.post(object).then(function (data) {
           console.log(data);
         });
       }
@@ -143,4 +142,4 @@ define(function (require) {
     return Register;
   }(React.Component);
 });
-//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\Register.js.map
+//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\Register.js.map

@@ -1,9 +1,14 @@
-define(function (require) {
+define(function (require){
   return {
-    request(url, object) {
-      const form = require('../../libs/form');
+    get() {
+      return fetch('http://localhost:15234/api/users', {
+        method: 'get'
+      }).then(response => response.json())
+    },
 
-      return fetch(url, {
+    post(object) {
+      const form = require('../../libs/form');
+      return fetch('http://localhost:15234/api/users', {
         method: 'post',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=windows-1251'
@@ -17,4 +22,5 @@ define(function (require) {
       }).then(response => response.json())
     }
   }
+
 })

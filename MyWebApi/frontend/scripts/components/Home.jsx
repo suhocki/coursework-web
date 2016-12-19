@@ -7,8 +7,13 @@ define(require => {
       return (
         <main>
           <aside>
-            <div><Link to='/register'>Register</Link></div>
+            <div><Link to='/addUser'>Add user</Link></div>
             <div><Link to='/addCar'>Add car</Link></div>
+            <div><Link to='/addContract'>Add contract</Link></div>
+            <p></p>
+            <div><Link to='/showUsers'>Show users</Link></div>
+            <div><Link to='/showCars'>Show cars</Link></div>
+            <div><Link to='/showContracts'>Show contracts</Link></div>
           </aside>
         </main>
       )
