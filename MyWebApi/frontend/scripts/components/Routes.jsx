@@ -40,8 +40,9 @@ define(function (require) {
       return (
         <main>
           <aside>
-            <h2>CarSearch</h2>
+            <h2>Car rental</h2>
             <Link to='/' activeClassName="current">Home</Link>
+            <Link to='/addUser' activeClassName="current">Add user</Link>
             <Link to='/addCar' activeClassName="current">Add car</Link>
             <Link to='/addContract' activeClassName="current">Add contract</Link>
             <Link to='/showContracts' activeClassName="current">Show contracts</Link>
@@ -62,6 +63,7 @@ define(function (require) {
           <Route component={App}>
             <Route path="/" component={Home}></Route>=
             <Route path="/addCar" component={AddCar}></Route>
+            <Route path="/addUser" component={AddUser}></Route>
             <Route path="/addContract" component={AddContract}></Route>
 
             <Route path="/showContracts" component={ShowContracts}></Route>

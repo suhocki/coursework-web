@@ -65,12 +65,17 @@ define(function (require) {
             React.createElement(
               'h2',
               null,
-              'CarSearch'
+              'Car rental'
             ),
             React.createElement(
               Link,
               { to: '/', activeClassName: 'current' },
               'Home'
+            ),
+            React.createElement(
+              Link,
+              { to: '/addUser', activeClassName: 'current' },
+              'Add user'
             ),
             React.createElement(
               Link,
@@ -119,6 +124,7 @@ define(function (require) {
             React.createElement(Route, { path: '/', component: Home }),
             '=',
             React.createElement(Route, { path: '/addCar', component: AddCar }),
+            React.createElement(Route, { path: '/addUser', component: AddUser }),
             React.createElement(Route, { path: '/addContract', component: AddContract }),
             React.createElement(Route, { path: '/showContracts', component: ShowContracts }),
             React.createElement(Route, { path: '/car/:id', component: CarView }),
@@ -131,4 +137,4 @@ define(function (require) {
     return Routes;
   }(React.Component);
 });
-//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\Routes.js.map
+//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\Routes.js.map

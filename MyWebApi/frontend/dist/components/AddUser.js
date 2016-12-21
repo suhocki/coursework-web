@@ -69,16 +69,16 @@ define(function (require) {
       key: 'render',
       value: function render() {
         return React.createElement(
-          'div',
-          null,
+          'content',
+          { 'data-flow': 'vertical' },
           React.createElement(
-            'p',
+            'h2',
             null,
-            '\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F'
+            'Add a new user'
           ),
           React.createElement(
             'form',
-            { className: 'userAdd' },
+            { className: 'contractAdd' },
             React.createElement(
               'p',
               null,

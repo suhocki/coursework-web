@@ -47,9 +47,10 @@ define(require => {
 
     render() {
       return (
-        <div>
-          <p>Добавление пользователя</p>
-          <form className="userAdd">
+        <content data-flow="vertical">
+          <h2>Add a new user</h2>
+
+          <form className="contractAdd">
             <p><input
               type="tel"
               placeholder="Телефон"
@@ -73,9 +74,11 @@ define(require => {
             <input
               type="button"
               value="Добавить"
-              onClick={this.onSubmit}/>
-          </form>
-        </div>
+                onClick={this.onSubmit}/>
+            </form>
+          </content>
+
+
       )
     }
   };
