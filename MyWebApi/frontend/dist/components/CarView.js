@@ -24,7 +24,7 @@ define(function (require) {
         car: []
       };
 
-      Car.get(props.params.id).then(function (car) {
+      Car.getById(props.params.id).then(function (car) {
         return _this.setState({ car: car });
       });
       return _this;

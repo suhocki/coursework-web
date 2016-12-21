@@ -23,6 +23,18 @@ namespace MyWebApi.Controllers
             return db.Cars;
         }
 
+        // GET api/Cars/5
+        public IHttpActionResult GetCar(int id)
+        {
+            Car car = db.Cars.Find(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(car);
+        }
+
         // GET api/Cars/
         public IHttpActionResult Get(string filter)
         {

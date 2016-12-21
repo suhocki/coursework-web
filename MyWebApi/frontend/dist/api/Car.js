@@ -7,6 +7,11 @@ define(function (require) {
         return response.json();
       });
     },
+    getById: function getById(id) {
+      return fetch('http://localhost:15234/api/cars/' + id).then(function (response) {
+        return response.json();
+      });
+    },
     getByFilter: function getByFilter(filter) {
       return fetch('http://localhost:15234/api/cars/?filter=' + filter).then(function (response) {
         return response.json();

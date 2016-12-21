@@ -10,7 +10,7 @@ define(require => {
         car: []
       }
 
-      Car.get(props.params.id).then(car => this.setState({car}))
+      Car.getById(props.params.id).then(car => this.setState({car}))
     }
 
     render() {
