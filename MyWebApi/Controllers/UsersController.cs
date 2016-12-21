@@ -19,7 +19,7 @@ namespace MyWebApi.Controllers
         // GET api/User
         public IQueryable<User> GetUsers()
         {
-            return db.Users;
+            return db.Users.Where(user => user.RoleId == 1);
         }
 
         // GET api/User/5

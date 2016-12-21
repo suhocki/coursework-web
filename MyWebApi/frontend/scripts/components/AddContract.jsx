@@ -2,6 +2,9 @@ define(require => {
   const React = require('react');
   const Link = require('reactRouter').Link;
   const Contract = require('../api/Contract');
+  const Car = require('../api/Car');
+  const User = require('../api/User');
+
   var contract = {
     starts: '',
     ends: '',
@@ -13,81 +16,131 @@ define(require => {
   return class AddContract extends React.Component {
     constructor() {
       super();
-      this.state = {};
+
+      var date = new Date();
+      var futureDate = new Date();
+      futureDate.setMonth(futureDate.getMonth() + 1);
+
+      this.state = {
+        cars: [],
+        users: [],
+        starts: date.toISOString(),
+        ends: futureDate.toISOString()
+      }
+
+      Car.get().then(cars => this.setState({
+        cars,
+        carId: cars[0].Id
+      }));
+
+      User.get().then(users => this.setState({
+        users,
+        userId: users[0].Id
+      }))
     }
 
     onSubmit(event) {
-      Contract.post(contract).then(response => {
+      const fields = ['starts', 'ends', 'price', 'userId', 'carId'];
+
+      var formData = new FormData();
+
+      for (let field of fields)
+        formData.append(field, this.state[field]);
+
+      Contract.post(formData).then(response => {
         console.log(response);
       })
 
       event.preventDefault();
     }
 
-    onStartsChange (event) {
-      event.preventDefault()
-      contract.starts = event.target.value;
+    onStartsChange(event) {
+      this.setState({starts: event.length ? event : event.target.value})
     }
 
-    onEndsChange (event) {
-      event.preventDefault()
-      contract.ends = event.target.value;
+    onEndsChange(event) {
+      this.setState({ends: event.length ? event : event.target.value})
     }
 
-    onPriceChange (event) {
-      event.preventDefault()
-      contract.price = event.target.value;
-    }
-
-    onUserIdChange (event) {
-      event.preventDefault()
-      contract.userId = event.target.value;
+    onPriceChange(event) {
+      this.setState({price: event.target.value})
     }
 
     onCarIdChange(event) {
-      event.preventDefault()
-      contract.carId = event.target.value;
+      this.setState({carId: event.target.value})
+    }
+
+    onUserIdChange (event) {
+      this.setState({userId: event.target.value})
+    }
+
+    getCurrentDate() {
+      var date = new Date();
+      return date.toLocaleDateString('ru-RU').split('.').reverse().join('-')
+    }
+
+    getFutureDate() {
+      var date = new Date();
+      date.setMonth(date.getMonth() + 1);
+      return date.toLocaleDateString('ru-RU').split('.').reverse().join('-')
+    }
+
+    renderCarSelect(cars) {
+      return cars.map(car => {
+        return (
+          <option key={car.Id} value={car.Id}>
+            {car.Name}
+          </option>
+        )
+      })
+    }
+
+    renderUsersSelect(users) {
+      return users.map(user => {
+        return (
+          <option key={user.Id} value={user.Id}>
+            {user.Name}
+          </option>
+        )
+      })
     }
 
     render() {
       var users = this.state.users;
 
-
       return (
-        <div>
-          <p>Новый контракт</p>
+        <content data-flow="vertical">
+          <h2>Add a new contract</h2>
+
           <form className="contractAdd">
-            <p><input
-              type="dateTime"
-              placeholder="Начало"
-              onChange={this.onStartsChange}/>
-            </p>
-            <p><input
-              type="dateTime"
-              placeholder="Окончание"
-              onChange={this.onEndsChange}/>
-            </p>
-            <p><input
-              type="text"
-              placeholder="Цена"
-              onChange={this.onPriceChange}/>
-            </p>
-            <p><input
-              type="text"
-              placeholder="userId"
-              onChange={this.onUserIdChange}/>
-            </p>
-            <p><input
-              type="text"
-              placeholder="carId"
-              onChange={this.onCarIdChange}/>
-            </p>
             <input
-              type="button"
-              value="Добавить"
-              onClick={this.onSubmit}/>
+              type="date"
+              placeholder="Start date"
+              value={this.getCurrentDate()}
+              onChange={this.onStartsChange.bind(this)}/>
+
+            <input
+              type="date"
+              placeholder="End time"
+              value={this.getFutureDate()}
+              onChange={this.onEndsChange.bind(this)}/>
+
+            <input
+              type="number"
+              placeholder="Цена"
+              onChange={this.onPriceChange.bind(this)}/>
+
+            <select onChange={this.onCarIdChange.bind(this)}>
+              {this.renderCarSelect(this.state.cars)}
+            </select>
+
+            <select onChange={this.onUserIdChange.bind(this)}>
+              {this.renderUsersSelect(this.state.users)}
+            </select>
+
+            <button onClick={this.onSubmit.bind(this)}>Submit</button>
           </form>
-        </div>
+        </content>
       )
     }
   };

@@ -23,17 +23,17 @@ namespace MyWebApi.Controllers
             return db.Cars;
         }
 
-        // GET api/Cars/5
-        [ResponseType(typeof(Car))]
-        public IHttpActionResult GetCar(int id)
+        // GET api/Cars/
+        public IHttpActionResult Get(string filter)
         {
-            Car car = db.Cars.Find(id);
-            if (car == null)
+            List<Car> cars = db.Cars.Where(carItem => carItem.Name.Contains(filter)).ToList();
+
+            if (cars == null)
             {
                 return NotFound();
             }
-
-            return Ok(car);
+        
+            return Ok(cars);
         }
 
         // PUT api/Cars/5
@@ -77,9 +77,15 @@ namespace MyWebApi.Controllers
             var request = HttpContext.Current.Request;
 
             Car car = new Car();
-            car.Available = HttpContext.Current.Request.Form["available"] == "true";
-            car.Photo = HttpContext.Current.Request.Form["photo"];
-            car.Name = HttpContext.Current.Request.Form["name"];
+
+            car.Available = request.Form["available"] == "true";
+            car.Photo = request.Form["photo"];
+            car.Name = request.Form["name"];
+            car.Description = request.Form["description"];
+            car.Features = request.Form["features"];
+            car.Year = Int32.Parse(request.Form["year"]); 
+            car.Range = Int32.Parse(request.Form["range"]);
+            car.Color = request.Form["color"];
 
             if (!ModelState.IsValid)
             {

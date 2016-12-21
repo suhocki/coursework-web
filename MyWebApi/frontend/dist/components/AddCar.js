@@ -42,7 +42,7 @@ define(function (require) {
 
             var reader = new FileReader();
             reader.addEventListener('load', function () {
-              return _this2.state.image = reader.result;
+              return _this2.setState({ photo: reader.result });
             });
             reader.readAsDataURL(file);
           };
@@ -70,18 +70,44 @@ define(function (require) {
     }, {
       key: 'submit',
       value: function submit(event) {
+        var fields = ['name', 'description', 'features', 'year', 'range', 'color', 'photo'];
+
         var formData = new FormData();
         formData.append('available', true);
-        formData.append('name', 'test');
-        formData.append('photo', this.state.image);
+
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var field = _step2.value;
+
+            formData.append(field, this.state[field]);
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
 
         Car.post(formData);
-
         event.preventDefault();
       }
     }, {
       key: 'render',
       value: function render() {
+        var _this3 = this;
+
         return React.createElement(
           'content',
           { 'data-flow': 'vertical' },
@@ -93,8 +119,26 @@ define(function (require) {
           React.createElement(
             'form',
             null,
-            React.createElement('input', { type: 'text', placeholder: 'Name' }),
+            React.createElement('input', { type: 'text', placeholder: 'Name', onChange: function onChange(e) {
+                return _this3.setState({ name: e.target.value });
+              } }),
+            React.createElement('textarea', { placeholder: 'Description', onChange: function onChange(e) {
+                return _this3.setState({ description: e.target.value });
+              } }),
+            React.createElement('textarea', { placeholder: 'Features', onChange: function onChange(e) {
+                return _this3.setState({ features: e.target.value });
+              } }),
+            React.createElement('input', { type: 'number', placeholder: 'Year', onChange: function onChange(e) {
+                return _this3.setState({ year: e.target.value });
+              } }),
+            React.createElement('input', { type: 'number', placeholder: 'Range', onChange: function onChange(e) {
+                return _this3.setState({ range: e.target.value });
+              } }),
+            React.createElement('input', { type: 'text', placeholder: 'Color', onChange: function onChange(e) {
+                return _this3.setState({ color: e.target.value });
+              } }),
             React.createElement('input', { type: 'file', onChange: this.imageChosen.bind(this) }),
+            React.createElement('img', { src: this.state.photo, className: 'preview' }),
             React.createElement(
               'button',
               { onClick: this.submit.bind(this) },

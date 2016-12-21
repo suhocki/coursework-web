@@ -11,13 +11,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 define(function (require) {
   var React = require('react');
   var User = require('../api/User');
-
-  var user = {
-    name: '',
-    isAdmin: '',
-    password: '',
-    phone: ''
-  };
+  var Link = require('reactRouter').Link;
 
   return function (_React$Component) {
     _inherits(ShowUsers, _React$Component);
@@ -40,10 +34,27 @@ define(function (require) {
     }
 
     _createClass(ShowUsers, [{
+      key: 'renderContracts',
+      value: function renderContracts(user) {
+        return user.Contracts.map(function (contract) {
+          return React.createElement(
+            'li',
+            { key: contract.Car.Id },
+            React.createElement(
+              Link,
+              { to: '/contract/' + contract.Id },
+              contract.Car.Name
+            )
+          );
+        });
+      }
+    }, {
       key: 'render',
       value: function render() {
+        var _this2 = this;
+
         var users = this.state.users;
-        console.log(users);
+
         if (!users.length) return React.createElement(
           'p',
           null,
@@ -51,20 +62,36 @@ define(function (require) {
         );
 
         return React.createElement(
-          'tbody',
+          'content',
           null,
-          React.createElement(
-            'span',
-            null,
-            'User: ',
-            users[users.length - 1].Name
-          ),
-          users.fill(1).map(function (el, i) {
+          users.map(function (user) {
             return React.createElement(
-              'span',
-              null,
-              'User: ',
-              users[i].Name
+              'card-component',
+              { key: user.Id },
+              React.createElement(
+                'strong',
+                null,
+                user.Name
+              ),
+              React.createElement(
+                'span',
+                null,
+                user.Phone
+              ),
+              React.createElement(
+                'div',
+                null,
+                'Contracts: ',
+                !user.Contracts.length ? React.createElement(
+                  'span',
+                  null,
+                  'No contracts!'
+                ) : React.createElement(
+                  'ol',
+                  null,
+                  _this2.renderContracts(user)
+                )
+              )
             );
           })
         );
@@ -74,4 +101,4 @@ define(function (require) {
     return ShowUsers;
   }(React.Component);
 });
-//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\ShowContracts.js.map
+//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\ShowContracts.js.map

@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MyWebApi.Models;
@@ -71,8 +72,18 @@ namespace MyWebApi.Controllers
 
         // POST api/Contracts
         [ResponseType(typeof(Contract))]
-        public IHttpActionResult PostContract(Contract contract)
+        public IHttpActionResult PostContract()
         {
+            var request = HttpContext.Current.Request;
+
+            Contract contract = new Contract();
+
+            contract.Starts = DateTime.Parse(request.Form["starts"]);
+            contract.Ends = DateTime.Parse(request.Form["ends"]);
+            contract.Price = Decimal.Parse(request.Form["price"]);
+            contract.UserId = Int32.Parse(request.Form["userId"]);
+            contract.CarId = Int32.Parse(request.Form["carId"]);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

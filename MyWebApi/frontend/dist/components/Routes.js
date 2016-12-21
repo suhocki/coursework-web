@@ -20,9 +20,12 @@ define(function (require) {
   var AddUser = require('components/AddUser');
   var AddContract = require('components/AddContract');
 
-  var ShowUsers = require('components/ShowUsers');
-  var ShowCars = require('components/ShowCars');
   var ShowContracts = require('components/ShowContracts');
+
+  var CarView = require('components/CarView');
+  var ContractView = require('components/ContractView');
+
+  var Car = require('../api/Car');
 
   var App = function (_React$Component) {
     _inherits(App, _React$Component);
@@ -30,10 +33,27 @@ define(function (require) {
     function App() {
       _classCallCheck(this, App);
 
-      return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+      var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+      _this.timeout = null;
+      return _this;
     }
 
     _createClass(App, [{
+      key: 'search',
+      value: function search(event) {
+        event.persist();
+
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(function () {
+          var query = event.target.value;
+
+          Car.getByFilter(query).then(function (cars) {
+            browserHistory.push('/?filter=' + query);
+          });
+        }, 200);
+      }
+    }, {
       key: 'render',
       value: function render() {
         return React.createElement(
@@ -54,11 +74,6 @@ define(function (require) {
             ),
             React.createElement(
               Link,
-              { to: '/addUser', activeClassName: 'current' },
-              'Add user'
-            ),
-            React.createElement(
-              Link,
               { to: '/addCar', activeClassName: 'current' },
               'Add car'
             ),
@@ -69,14 +84,11 @@ define(function (require) {
             ),
             React.createElement(
               Link,
-              { to: '/showUsers', activeClassName: 'current' },
-              'Show users'
-            ),
-            React.createElement(
-              Link,
               { to: '/showContracts', activeClassName: 'current' },
               'Show contracts'
-            )
+            ),
+            React.createElement('span', { className: 'separator' }),
+            React.createElement('input', { type: 'text', placeholder: 'Search...', className: 'search', onChange: this.search.bind(this) })
           ),
           this.props.children
         );
@@ -105,12 +117,12 @@ define(function (require) {
             Route,
             { component: App },
             React.createElement(Route, { path: '/', component: Home }),
-            React.createElement(Route, { path: '/addUser', component: AddUser }),
+            '=',
             React.createElement(Route, { path: '/addCar', component: AddCar }),
             React.createElement(Route, { path: '/addContract', component: AddContract }),
-            React.createElement(Route, { path: '/showUsers', component: ShowUsers }),
-            React.createElement(Route, { path: '/showCars', component: ShowCars }),
-            React.createElement(Route, { path: '/showContracts', component: ShowContracts })
+            React.createElement(Route, { path: '/showContracts', component: ShowContracts }),
+            React.createElement(Route, { path: '/car/:id', component: CarView }),
+            React.createElement(Route, { path: '/contract/:id', component: ContractView })
           )
         );
       }

@@ -1,13 +1,7 @@
 define(require => {
   const React = require('react');
   const User = require('../api/User');
-
-  var user = {
-    name: '',
-    isAdmin: '',
-    password: '',
-    phone: '',
-  }
+  const Link = require('reactRouter').Link;
 
   return class ShowUsers extends React.Component {
     constructor() {
@@ -24,21 +18,37 @@ define(require => {
       };
     }
 
+    renderContracts(user) {
+      return user.Contracts.map(contract => {
+        return <li key={contract.Car.Id}>
+          <Link to={'/contract/' + contract.Id}>{contract.Car.Name}</Link>
+        </li>
+      })
+    }
+
     render() {
       var users = this.state.users;
-      console.log(users);
+
       if (!users.length)
         return <p>Loading!</p>;
 
       return (
-        <tbody>
-          <span>User: {users[users.length-1].Name}</span>
+        <content>
+          {users.map(user => {
+            return (
+              <card-component key={user.Id}>
+                <strong>{user.Name}</strong>
+                <span>{user.Phone}</span>
 
-          {users.fill(1).map((el, i) =>
-            <span>User: {users[i].Name}</span>
-          )}
-        </tbody>
-
+                <div>
+                  Contracts: {
+                    !user.Contracts.length ? <span>No contracts!</span> : <ol>{this.renderContracts(user)}</ol>
+                  }
+                </div>
+              </card-component>
+            )
+          })}
+        </content>
       )
     }
   };

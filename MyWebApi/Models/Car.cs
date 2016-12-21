@@ -23,6 +23,11 @@ namespace MyWebApi.Models
         public string Name { get; set; }
         public string Photo { get; set; }
         public bool Available { get; set; }
+        public string Color { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> Range { get; set; }
+        public Nullable<int> Year { get; set; }
+        public string Features { get; set; }
     
         public virtual ICollection<Contract> Contracts { get; set; }
     }

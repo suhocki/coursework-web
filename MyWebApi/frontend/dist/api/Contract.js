@@ -2,24 +2,19 @@
 
 define(function (require) {
   return {
-    post: function post(contract) {
-      var form = require('../../libs/form');
+    get: function get(id) {
+      return fetch('http://localhost:15234/api/Contracts/' + (id || '')).then(function (response) {
+        return response.json();
+      });
+    },
+    post: function post(formData) {
       return fetch('http://localhost:15234/api/Contracts', {
         method: 'post',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=windows-1251'
-        },
-        body: form.encode({
-          starts: contract.starts,
-          ends: contract.ends,
-          price: contract.price,
-          userId: contract.userId,
-          carId: contract.carId
-        })
+        body: formData
       }).then(function (response) {
         return response.json();
       });
     }
   };
 });
-//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\api\Contract.js.map
+//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\api\Contract.js.map

@@ -13,6 +13,11 @@ body
   background: #eee
   margin: 0
 
+input,
+textarea
+  padding: .5em
+  font: 14px 'Fira Sans'
+
 html,
 body,
 app,
@@ -23,16 +28,28 @@ main
 main
   display: flex
 
+form
+  display: flex
+  flex-direction: column
+
 content
   display: flex
   padding: $gutter
-  align-items: flex-start
+  padding-left: 11em
+  align-items: center
+  justify-content: center
+  flex-wrap: wrap
+  width: 100%
 
   &[data-flow="vertical"]
     flex-direction: column
 
+  &[data-align="left"]
+    align-items: flex-start
+    justify-content: flex-start
+
   h2
-    margin: 0
+    //margin: 0
 
   input
     padding: $gutter / 2
@@ -41,12 +58,19 @@ content
     &[type="file"]
       padding: 0
 
+  select
+    padding: .5em
+
+  select,
+  textarea
+    margin: $gutter 0
+
   button
     border: none
     border-radius: 3px
     color: $white
     background: $theme-primary
-    padding: $gutter / 2 $gutter * 2
+    padding: $gutter $gutter * 2
 
 input,
 button
@@ -56,11 +80,9 @@ aside
   display: flex
   flex-direction: column
   height: 100%
-  width: 20vw
+  width: 10em
   background: $theme-primary-light
-
-  h2
-    text-align: center
+  position: fixed
 
   a
     padding: $gutter
@@ -71,11 +93,44 @@ aside
       background: rgba(3, 169, 244, 0.42)
 
 card-component
-  display: block
+  display: flex
   background: $white
-  margin-right: $gutter
+  margin:  0 $gutter $gutter 0
   padding: $gutter
   box-shadow: 1px 1px 5px $gray-shade
+  min-width: 14em
+  min-height: 10em
+  justify-content: space-around
+  flex-direction: column
+  align-items: center
 
-  img
-    max-width: 20vw
+  a
+    color: #000
+    text-decoration: none
+    font-weight: bold
+
+h2
+  text-align: center
+  margin: 1em auto
+
+img
+  max-width: 12em
+  max-height: 10em
+
+  &.photo
+    margin: 1em auto
+    max-width: 25em
+    max-height: unset
+
+.preview
+    max-width: 20em
+    margin: 0 auto
+    margin-bottom: 1em
+
+.separator
+  flex-grow: 1
+
+.search
+  margin: 1em
+  border-radius: 5px
+  border: 1px solid rgba(3,169,244,0.42)

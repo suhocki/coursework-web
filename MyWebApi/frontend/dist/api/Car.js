@@ -3,7 +3,12 @@
 define(function (require) {
   return {
     get: function get() {
-      return fetch('http://localhost:15234/api/cars').then(function (response) {
+      return fetch('http://localhost:15234/api/cars/').then(function (response) {
+        return response.json();
+      });
+    },
+    getByFilter: function getByFilter(filter) {
+      return fetch('http://localhost:15234/api/cars/?filter=' + filter).then(function (response) {
         return response.json();
       });
     },

@@ -12,6 +12,9 @@ define(function (require) {
   var React = require('react');
   var Link = require('reactRouter').Link;
   var Contract = require('../api/Contract');
+  var Car = require('../api/Car');
+  var User = require('../api/User');
+
   var contract = {
     starts: '',
     ends: '',
@@ -28,14 +31,66 @@ define(function (require) {
 
       var _this = _possibleConstructorReturn(this, (AddContract.__proto__ || Object.getPrototypeOf(AddContract)).call(this));
 
-      _this.state = {};
+      var date = new Date();
+      var futureDate = new Date();
+      futureDate.setMonth(futureDate.getMonth() + 1);
+
+      _this.state = {
+        cars: [],
+        users: [],
+        starts: date.toISOString(),
+        ends: futureDate.toISOString()
+      };
+
+      Car.get().then(function (cars) {
+        return _this.setState({
+          cars: cars,
+          carId: cars[0].Id
+        });
+      });
+
+      User.get().then(function (users) {
+        return _this.setState({
+          users: users,
+          userId: users[0].Id
+        });
+      });
       return _this;
     }
 
     _createClass(AddContract, [{
       key: 'onSubmit',
       value: function onSubmit(event) {
-        Contract.post(contract).then(function (response) {
+        var fields = ['starts', 'ends', 'price', 'userId', 'carId'];
+
+        var formData = new FormData();
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = fields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var field = _step.value;
+
+            formData.append(field, this.state[field]);
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        Contract.post(formData).then(function (response) {
           console.log(response);
         });
 
@@ -44,32 +99,62 @@ define(function (require) {
     }, {
       key: 'onStartsChange',
       value: function onStartsChange(event) {
-        event.preventDefault();
-        contract.starts = event.target.value;
+        this.setState({ starts: event.length ? event : event.target.value });
       }
     }, {
       key: 'onEndsChange',
       value: function onEndsChange(event) {
-        event.preventDefault();
-        contract.ends = event.target.value;
+        this.setState({ ends: event.length ? event : event.target.value });
       }
     }, {
       key: 'onPriceChange',
       value: function onPriceChange(event) {
-        event.preventDefault();
-        contract.price = event.target.value;
-      }
-    }, {
-      key: 'onUserIdChange',
-      value: function onUserIdChange(event) {
-        event.preventDefault();
-        contract.userId = event.target.value;
+        this.setState({ price: event.target.value });
       }
     }, {
       key: 'onCarIdChange',
       value: function onCarIdChange(event) {
-        event.preventDefault();
-        contract.carId = event.target.value;
+        this.setState({ carId: event.target.value });
+      }
+    }, {
+      key: 'onUserIdChange',
+      value: function onUserIdChange(event) {
+        this.setState({ userId: event.target.value });
+      }
+    }, {
+      key: 'getCurrentDate',
+      value: function getCurrentDate() {
+        var date = new Date();
+        return date.toLocaleDateString('ru-RU').split('.').reverse().join('-');
+      }
+    }, {
+      key: 'getFutureDate',
+      value: function getFutureDate() {
+        var date = new Date();
+        date.setMonth(date.getMonth() + 1);
+        return date.toLocaleDateString('ru-RU').split('.').reverse().join('-');
+      }
+    }, {
+      key: 'renderCarSelect',
+      value: function renderCarSelect(cars) {
+        return cars.map(function (car) {
+          return React.createElement(
+            'option',
+            { key: car.Id, value: car.Id },
+            car.Name
+          );
+        });
+      }
+    }, {
+      key: 'renderUsersSelect',
+      value: function renderUsersSelect(users) {
+        return users.map(function (user) {
+          return React.createElement(
+            'option',
+            { key: user.Id, value: user.Id },
+            user.Name
+          );
+        });
       }
     }, {
       key: 'render',
@@ -77,60 +162,45 @@ define(function (require) {
         var users = this.state.users;
 
         return React.createElement(
-          'div',
-          null,
+          'content',
+          { 'data-flow': 'vertical' },
           React.createElement(
-            'p',
+            'h2',
             null,
-            '\u041D\u043E\u0432\u044B\u0439 \u043A\u043E\u043D\u0442\u0440\u0430\u043A\u0442'
+            'Add a new contract'
           ),
           React.createElement(
             'form',
             { className: 'contractAdd' },
-            React.createElement(
-              'p',
-              null,
-              React.createElement('input', {
-                type: 'dateTime',
-                placeholder: '\u041D\u0430\u0447\u0430\u043B\u043E',
-                onChange: this.onStartsChange })
-            ),
-            React.createElement(
-              'p',
-              null,
-              React.createElement('input', {
-                type: 'dateTime',
-                placeholder: '\u041E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u0435',
-                onChange: this.onEndsChange })
-            ),
-            React.createElement(
-              'p',
-              null,
-              React.createElement('input', {
-                type: 'text',
-                placeholder: '\u0426\u0435\u043D\u0430',
-                onChange: this.onPriceChange })
-            ),
-            React.createElement(
-              'p',
-              null,
-              React.createElement('input', {
-                type: 'text',
-                placeholder: 'userId',
-                onChange: this.onUserIdChange })
-            ),
-            React.createElement(
-              'p',
-              null,
-              React.createElement('input', {
-                type: 'text',
-                placeholder: 'carId',
-                onChange: this.onCarIdChange })
-            ),
             React.createElement('input', {
-              type: 'button',
-              value: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C',
-              onClick: this.onSubmit })
+              type: 'date',
+              placeholder: 'Start date',
+              value: this.getCurrentDate(),
+              onChange: this.onStartsChange.bind(this) }),
+            React.createElement('input', {
+              type: 'date',
+              placeholder: 'End time',
+              value: this.getFutureDate(),
+              onChange: this.onEndsChange.bind(this) }),
+            React.createElement('input', {
+              type: 'number',
+              placeholder: '\u0426\u0435\u043D\u0430',
+              onChange: this.onPriceChange.bind(this) }),
+            React.createElement(
+              'select',
+              { onChange: this.onCarIdChange.bind(this) },
+              this.renderCarSelect(this.state.cars)
+            ),
+            React.createElement(
+              'select',
+              { onChange: this.onUserIdChange.bind(this) },
+              this.renderUsersSelect(this.state.users)
+            ),
+            React.createElement(
+              'button',
+              { onClick: this.onSubmit.bind(this) },
+              'Submit'
+            )
           )
         );
       }
@@ -139,4 +209,4 @@ define(function (require) {
     return AddContract;
   }(React.Component);
 });
-//# sourceMappingURL=D:\VisualStudioProjects\MyWebApi\MyWebApi\frontend\components\AddContract.js.map
+//# sourceMappingURL=C:\Users\collapse\Source\Repos\MyWebApi\MyWebApi\components\AddContract.js.map

@@ -10,22 +10,43 @@ define(function (require) {
   const AddUser = require('components/AddUser');
   const AddContract = require('components/AddContract');
 
-  const ShowUsers = require('components/ShowUsers');
-  const ShowCars = require('components/ShowCars');
   const ShowContracts = require('components/ShowContracts');
 
+  const CarView = require('components/CarView');
+  const ContractView = require('components/ContractView');
+
+  const Car = require('../api/Car');
+
   class App extends React.Component {
+    constructor() {
+      super();
+      this.timeout = null;
+    }
+
+    search(event) {
+      event.persist();
+
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        var query = event.target.value;
+
+        Car.getByFilter(query).then(cars => {
+          browserHistory.push('/?filter=' + query);
+        })
+      }, 200);
+    }
+
     render() {
       return (
         <main>
           <aside>
             <h2>CarSearch</h2>
             <Link to='/' activeClassName="current">Home</Link>
-            <Link to='/addUser' activeClassName="current">Add user</Link>
             <Link to='/addCar' activeClassName="current">Add car</Link>
             <Link to='/addContract' activeClassName="current">Add contract</Link>
-            <Link to='/showUsers' activeClassName="current">Show users</Link>
             <Link to='/showContracts' activeClassName="current">Show contracts</Link>
+            <span className="separator"></span>
+            <input type="text" placeholder="Search..." className="search" onChange={this.search.bind(this)}/>
           </aside>
 
           {this.props.children}
@@ -39,14 +60,14 @@ define(function (require) {
       return (
         <Router history={browserHistory}>
           <Route component={App}>
-            <Route path="/" component={Home}></Route>
-            <Route path="/addUser" component={AddUser}></Route>
+            <Route path="/" component={Home}></Route>=
             <Route path="/addCar" component={AddCar}></Route>
             <Route path="/addContract" component={AddContract}></Route>
 
-            <Route path="/showUsers" component={ShowUsers}></Route>
-            <Route path="/showCars" component={ShowCars}></Route>
             <Route path="/showContracts" component={ShowContracts}></Route>
+
+            <Route path="/car/:id" component={CarView}></Route>
+            <Route path="/contract/:id" component={ContractView}></Route>
           </Route>
         </Router>
       )
